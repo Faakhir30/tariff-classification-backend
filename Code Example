@@ -1,0 +1,45 @@
+import numpy as np
+import tensorflow as tf
+import tensorflow_hub as hub
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Load the Universal Sentence Encoder model
+embed = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
+
+# Function to generate embeddings
+def generate_embeddings(texts):
+    return embed(texts)
+
+# Example corpus of UN Commodity Reference Descriptions with HS codes
+corpus = [
+    {"description": "Fresh apples", "hs_code": "080810"},
+    {"description": "Citrus fruits, fresh or dried", "hs_code": "0805"},
+    {"description": "Bananas, including plantains, fresh or dried", "hs_code": "0803"},
+    {"description": "Wheat flour", "hs_code": "1101"},
+    # Add more commodity descriptions and their HS codes here
+]
+
+# Example trade document description (query)
+query = "Fresh bananas"
+
+# Pre-process the corpus and query
+corpus_descriptions = [item['description'] for item in corpus]
+
+# Generate embeddings for the corpus and query
+corpus_embeddings = generate_embeddings(corpus_descriptions)
+query_embedding = generate_embeddings([query])[0]
+
+# Compute cosine similarities
+cosine_similarities = cosine_similarity([query_embedding], corpus_embeddings)[0]
+
+# Get top k recommendations based on cosine similarity
+k = 3
+top_k_indices = np.argsort(cosine_similarities)[-k:][::-1]
+
+# Display the top k recommendations
+print(f"Query: '{query}'")
+print("Top k recommended commodities with HS codes:")
+
+for idx in top_k_indices:
+    print(f"Description: {corpus[idx]['description']}, HS Code: {corpus[idx]['hs_code']}, Similarity: {cosine_similarities[idx]:.4f}")
+
