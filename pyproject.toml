@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "tariff-classification-backend"
+version = "0.1.0"
+description = ""
+authors = ["Usman Fawad <45047731+Usmanfawad@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = {extras = ["standard"], version = "^0.112.2"}
+asyncpg = "^0.29.0"
+databases = {extras = ["postgresql"], version = "^0.9.0"}
+sqlalchemy = "^2.0.32"
+black = "^24.8.0"
+sqlmodel = "^0.0.21"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
