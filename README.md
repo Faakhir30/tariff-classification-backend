@@ -8,9 +8,7 @@ Features
 - PostgreSQL: A powerful, open-source object-relational database system used for storing application data.
 - Docker: Containerized PostgreSQL for isolated and consistent database management.
 
-
 Project Structure
-
 
 ```plaintext
 ├── app/
@@ -60,7 +58,7 @@ Create a .env file in the root directory to configure your environment variables
 
 1. Start PostgreSQL with Docker:
 
-    Use Docker Compose to set up and run the PostgreSQL container.
+   Use Docker Compose to set up and run the PostgreSQL container.
 
 ```bash
 docker-compose up -d
@@ -68,7 +66,7 @@ docker-compose up -d
 
 2. Run the FastAPI application:
 
-    After the database is up and running, you can start your FastAPI application:
+   After the database is up and running, you can start your FastAPI application:
 
 ```bash
     poetry run uvicorn app.main:api_app --reload
