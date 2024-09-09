@@ -6,13 +6,15 @@ authors = ["Usman Fawad <45047731+Usmanfawad@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
-fastapi = {extras = ["standard"], version = "^0.112.2"}
+python = "^3.11"
+fastapi = "^0.114.0"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.34"}
 asyncpg = "^0.29.0"
-databases = {extras = ["postgresql"], version = "^0.9.0"}
-sqlalchemy = "^2.0.32"
-black = "^24.8.0"
-sqlmodel = "^0.0.21"
+uvicorn = "^0.30.6"
+alembic = "^1.13.2"
+pyjwt = "^2.9.0"
+passlib = "^1.7.4"
+pydantic = {extras = ["email"], version = "^2.9.1"}
 
 
 [build-system]
