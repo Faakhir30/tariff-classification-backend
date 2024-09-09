@@ -1,6 +1,6 @@
 import enum
 import uuid
-from sqlalchemy import Column, Enum, String, DateTime, ForeignKey, Text, Float
+from sqlalchemy import ARRAY, Column, Enum, String, DateTime, ForeignKey, Text, Float
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -51,3 +51,22 @@ class SearchResult(Base):
     search_date = Column(DateTime, default=datetime.utcnow)
 
     description = relationship("GoodsDescription", back_populates="search_results")
+
+
+class Feedback(Base):
+    __tablename__ = "feedbacks"
+
+    feedback_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.user_id"), nullable=False)
+    goods_description_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("goods_descriptions.description_id"),
+        nullable=False,
+    )
+    feedback_text = Column(Text, nullable=False)
+    expected_values = Column(
+        ARRAY(Text), nullable=False
+    )  # Using ARRAY type for list of strings
+
+    user = relationship("User")
+    goods_description = relationship("GoodsDescription")

@@ -1,3 +1,6 @@
+from typing import List
+
+from app.models import UserRole
 from .searchRouter import *
 
 
@@ -30,3 +33,20 @@ async def read_search_result(
         )
 
     return search_result
+
+
+@router.get("/", response_model=List[SearchResultResponse])
+async def get_all_search_results(
+    db: AsyncSession = Depends(get_db), current_user: User = Depends(auth_dep)
+):
+    if current_user.role != UserRole.ADMIN:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access forbidden: Admins only",
+        )
+
+    query = select(SearchResult)
+    result = await db.execute(query)
+    search_results = result.scalars().all()
+
+    return search_results

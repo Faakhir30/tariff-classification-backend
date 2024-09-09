@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import UUID4, BaseModel, EmailStr
 from typing import List, Literal, Optional
 from uuid import UUID
 from datetime import datetime
@@ -62,6 +62,23 @@ class SearchResultCreate(SearchResultBase):
 class SearchResultResponse(SearchResultBase):
     result_id: UUID
     search_date: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class FeedbackBase(BaseModel):
+    feedback_text: str
+    expected_values: List[str]
+
+
+class FeedbackCreate(FeedbackBase):
+    goods_description_id: UUID4
+
+
+class FeedbackResponse(FeedbackBase):
+    feedback_id: UUID4
+    user_id: UUID4
 
     class Config:
         orm_mode = True
