@@ -5,13 +5,15 @@ from .searchRouter import *
     "/", response_model=SearchResultResponse, status_code=status.HTTP_201_CREATED
 )
 async def create_search_result(
-    search_result_create: SearchResultCreate,
+    search_result_create: SearchRequestBase,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(auth_dep),
 ):
     # Check if the associated GoodsDescription exists and belongs to the current user
+    if isinstance(current_user, JSONResponse):
+        return current_user
     description_query = select(GoodsDescription).filter(
-        GoodsDescription.description_id == search_result_create.description_id
+        GoodsDescription.description_id == search_result_create.description
     )
     result = await db.execute(description_query)
     description = result.scalars().first()

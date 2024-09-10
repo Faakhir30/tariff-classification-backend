@@ -7,6 +7,8 @@ async def delete_search_result(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(auth_dep),
 ):
+    if isinstance(current_user, JSONResponse):
+        return current_user
     query = select(SearchResult).filter(SearchResult.result_id == result_id)
     result = await db.execute(query)
     search_result = result.scalars().first()

@@ -43,15 +43,9 @@ async def initialize_database():
 
 
 @app.on_event("startup")
-async def startup_event():
-    logger.info("Starting up the application...")
-    try:
-        await initialize_database()
-    except Exception as e:
-        logger.error(f"Failed to initialize database: {str(e)}")
-        # You might want to exit the application here if database init fails
-        # import sys
-        # sys.exit(1)
+async def init_db():
+    # await drop_all_tables()
+    await create_all_tables()
 
 
 app.include_router(auth_router, prefix="/auth")

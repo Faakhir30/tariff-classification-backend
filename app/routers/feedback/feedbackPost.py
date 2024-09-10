@@ -7,6 +7,9 @@ async def create_feedback(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(auth_dep),
 ):
+    if isinstance(current_user, JSONResponse):
+        return current_user
+
     # Check if the associated GoodsDescription exists and belongs to the current user
     description_query = select(GoodsDescription).filter(
         GoodsDescription.description_id == feedback_create.goods_description_id

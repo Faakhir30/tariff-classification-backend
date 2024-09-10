@@ -50,6 +50,10 @@ class GoodsDescriptionResponse(GoodsDescriptionBase):
         from_attributes = True
 
 
+class SearchRequestBase(BaseModel):
+    description: str
+
+
 class SearchResultBase(BaseModel):
     hs_code: str
     similarity_score: float

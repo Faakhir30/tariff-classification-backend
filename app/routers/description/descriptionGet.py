@@ -5,6 +5,8 @@ from .descriptionRouter import *
 async def get_goods_descriptions(
     db: AsyncSession = Depends(get_db), current_user: User = Depends(auth_dep)
 ):
+    if isinstance(current_user, JSONResponse):
+        return current_user
     query = select(GoodsDescription).filter(
         GoodsDescription.user_id == current_user.user_id
     )
@@ -19,6 +21,8 @@ async def get_goods_description(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(auth_dep),
 ):
+    if isinstance(current_user, JSONResponse):
+        return current_user
     query = select(GoodsDescription).filter(
         GoodsDescription.description_id == description_id,
         GoodsDescription.user_id == current_user.user_id,

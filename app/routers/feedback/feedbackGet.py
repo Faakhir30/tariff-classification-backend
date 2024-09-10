@@ -7,6 +7,9 @@ async def read_feedback(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(auth_dep),
 ):
+    if isinstance(current_user, JSONResponse):
+        return current_user
+
     query = select(Feedback).filter(Feedback.feedback_id == feedback_id)
     result = await db.execute(query)
     feedback = result.scalars().first()
@@ -30,6 +33,9 @@ async def read_feedback(
 async def get_all_feedback(
     db: AsyncSession = Depends(get_db), current_user: User = Depends(auth_dep)
 ):
+    if isinstance(current_user, JSONResponse):
+        return current_user
+
     # Check if the current user is an admin
     if current_user.role != UserRole.ADMIN:
         raise HTTPException(

@@ -8,17 +8,20 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.session.db import get_db
 from app.models import User
 from app.utils.responses import response
+from dotenv import load_dotenv
 
-
+load_dotenv()
 SECREY_KEY = os.getenv("SECRET_KEY")
 
 
-async def auth_dep(auth_token: str = Header(None), db: AsyncSession = Depends(get_db)):
-    print("Authorization: ", auth_token)
+async def auth_dep(
+    authorization: str = Header(None), db: AsyncSession = Depends(get_db)
+):
+    print("Authorization: ", authorization)
     token = None
-    if auth_token and auth_token.startswith("Bearer "):
+    if authorization and authorization.startswith("Bearer "):
         try:
-            token = auth_token.split(" ")[1]
+            token = authorization.split(" ")[1]
         except Exception as e:
             return response(401, "Invalid Token!", data=None)
     if not token:

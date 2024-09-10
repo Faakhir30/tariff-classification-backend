@@ -9,6 +9,8 @@ async def create_goods_description(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(auth_dep),
 ):
+    if isinstance(current_user, JSONResponse):
+        return current_user
     new_description = GoodsDescription(
         user_id=current_user.user_id,
         description_text=goods_desc_create.description_text,

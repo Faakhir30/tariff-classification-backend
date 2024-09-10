@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.exc import IntegrityError

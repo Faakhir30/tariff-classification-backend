@@ -1,10 +1,10 @@
+import os
+from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# DATABASE_URL = "postgresql+asyncpg://postgres:postgres@localhost/mydatabase"
-# DATABASE_URL = "postgresql+asyncpg://postgres:admin@172.18.0.2:5432/mydatabase"
-DATABASE_URL = "postgresql+asyncpg://postgres:admin@localhost:5432/mydatabase"
-
+load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_async_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(

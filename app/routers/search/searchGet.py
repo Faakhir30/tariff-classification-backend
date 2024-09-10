@@ -10,6 +10,8 @@ async def read_search_result(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(auth_dep),
 ):
+    if isinstance(current_user, JSONResponse):
+        return current_user
     query = select(SearchResult).filter(SearchResult.result_id == result_id)
     result = await db.execute(query)
     search_result = result.scalars().first()
@@ -39,6 +41,8 @@ async def read_search_result(
 async def get_all_search_results(
     db: AsyncSession = Depends(get_db), current_user: User = Depends(auth_dep)
 ):
+    if isinstance(current_user, JSONResponse):
+        return current_user
     if current_user.role != UserRole.ADMIN:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
