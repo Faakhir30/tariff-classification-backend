@@ -1,4 +1,4 @@
-from .discriptionRouter import *
+from .descriptionRouter import *
 
 
 @router.delete("/{description_id}", status_code=status.HTTP_204_NO_CONTENT)

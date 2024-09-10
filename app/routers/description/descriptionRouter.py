@@ -17,7 +17,7 @@ from app.dependencies.auth import auth_dep
 
 router = APIRouter()
 
-from .discriptionPost import create_goods_description
-from .discriptionPut import update_goods_description
-from .discriptionGet import get_goods_descriptions, get_goods_description
-from .discriptionDelete import delete_goods_description
+from .descriptionPost import create_goods_description
+from .descriptionPut import update_goods_description
+from .descriptionGet import get_goods_descriptions, get_goods_description
+from .descriptionDelete import delete_goods_description

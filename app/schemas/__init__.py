@@ -26,7 +26,7 @@ class UserResponse(UserBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class GoodsDescriptionBase(BaseModel):
@@ -47,7 +47,7 @@ class GoodsDescriptionResponse(GoodsDescriptionBase):
     upload_date: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class SearchResultBase(BaseModel):
@@ -64,7 +64,7 @@ class SearchResultResponse(SearchResultBase):
     search_date: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class FeedbackBase(BaseModel):
@@ -81,4 +81,4 @@ class FeedbackResponse(FeedbackBase):
     user_id: UUID4
 
     class Config:
-        orm_mode = True
+        from_attributes = True
